@@ -6,6 +6,17 @@ my $cgi = CGI->new;
 print $cgi->header(-type => 'text/html', -charset => 'utf-8');
 
 my $operacion = $cgi->param('operacion');
+my $resultado;
+
+if ($operacion =~ /^\s*(\d+)\s*([-+*\/])\s*(\d+)\s*$/) {
+    my $operando1 = $1;
+    my $operador = $2;
+    my $operando2 = $3;
+
+    eval {
+        $resultado = eval "$operando1 $operador $operando2";
+    };
+}
 
 print <<"HTML";
 <!DOCTYPE html>
@@ -73,14 +84,18 @@ print <<"HTML";
         button:hover {
             transform: scale(1.1);
         }
+
+        p {
+            font-size: 20px;
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
     <section>
         <div class="contenedor">
             <h1>CALCULADORA</h1>
-            <p>Texto Recibido:</p>
-            <p>$operacion</p>
+            <p>El resultado es: $resultado</p>
         </div>
     </section>
 </body>
