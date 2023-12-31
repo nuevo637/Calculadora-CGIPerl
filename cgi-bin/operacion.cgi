@@ -1,14 +1,12 @@
 #!"C:/xampp/perl/bin/perl.exe"
 use CGI;
-
 my $cgi = CGI->new;
-
 print $cgi->header(-type => 'text/html', -charset => 'utf-8');
 
 my $operacion = $cgi->param('operacion');
 my $resultado;
 
-if ($operacion =~ /^\s*(\d+)\s*([-+*\/])\s*(\d+)\s*$/) {
+if ($operacion =~ /^(\d+)([-+*\/])(\d+)$/) {
     my $operando1 = $1;
     my $operador = $2;
     my $operando2 = $3;
