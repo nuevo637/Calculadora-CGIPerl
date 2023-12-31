@@ -10,11 +10,14 @@ if ($operacion =~ /^(\d+)([-+*\/])(\d+)$/) {
     my $operando1 = $1;
     my $operador = $2;
     my $operando2 = $3;
-    if($operador == "/" and $operando2 == 0)
-        $resultado = "Indeterminado";     
-    eval {
-        $resultado = eval "$operando1 $operador $operando2";
-    };
+    if ($operador eq "/" and $operando2 == 0) {
+        $resultado = "Indeterminado";
+    } 
+    else {
+        eval {
+            $resultado = eval "$operando1 $operador $operando2";
+        };
+    }
 }
 
 print <<"HTML";
