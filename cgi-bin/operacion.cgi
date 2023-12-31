@@ -7,12 +7,15 @@ print $cgi->header(-type => 'text/html', -charset => 'utf-8');
 my $operacion = $cgi->param('operacion');
 my $resultado;
 
-
 if ($operacion =~ /^(.*?)$/) {
     my $expresion_completa = $1;
     eval {
         $resultado = eval $expresion_completa;
     };
+
+    if (!defined $resultado) {
+        $resultado = "Indefinido";
+    }
 }
 
 print <<"HTML";
