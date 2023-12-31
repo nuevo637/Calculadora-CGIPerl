@@ -1,23 +1,18 @@
 #!"C:/xampp/perl/bin/perl.exe"
 use CGI;
-my $cgi = CGI->new;
-print $cgi->header(-type => 'text/html', -charset => 'utf-8');
 
+my $cgi = CGI->new;
+
+print $cgi->header(-type => 'text/html', -charset => 'utf-8');
 my $operacion = $cgi->param('operacion');
 my $resultado;
 
-if ($operacion =~ /^(\d+)([-+*\/])(\d+)$/) {
-    my $operando1 = $1;
-    my $operador = $2;
-    my $operando2 = $3;
-    if ($operador eq "/" and $operando2 == 0) {
-        $resultado = "Indeterminado";
-    } 
-    else {
-        eval {
-            $resultado = eval "$operando1 $operador $operando2";
-        };
-    }
+
+if ($operacion =~ /^(.*?)$/) {
+    my $expresion_completa = $1;
+    eval {
+        $resultado = eval $expresion_completa;
+    };
 }
 
 print <<"HTML";
